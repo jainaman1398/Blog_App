@@ -8,21 +8,37 @@ exports.register=(req,res)=>{
         });
     }
     console.log(req.body.Username);
-    const signup=new Signup({
-        Username:req.body.Username,
-        password:req.body.password,
-        firstname:req.body.firstname,
-        lastname:req.body.lastname,
-        blogURL:req.body.blogURL
-    });
+    Signup.findOne({Username:req.body.Username},function (err,user) {
+        if(err)
+            throw err;
+        else
+        {
+            if(user===null)
+            {
+                const signup=new Signup({
+                    Username:req.body.Username,
+                    password:req.body.password,
+                    firstname:req.body.firstname,
+                    lastname:req.body.lastname,
+                    blogURL:req.body.blogURL
+                });
 
-    signup.save()
-        .then(data => {
-            res.send(data);
-        }).catch(err => {
-        res.status(500).send({
-            message: err.message || "Some error occurred while registering the user."
-        });
+                signup.save()
+                    .then(data => {
+                        res.send(data);
+                    }).catch(err => {
+                    res.status(500).send({
+                        message: err.message || "Some error occurred while registering the user."
+                    });
+                });
+            }
+            else
+            {
+                res.status(500).send({
+                    message: "Username is not available"
+                });
+            }
+        }
     });
 
 };
