@@ -18,6 +18,9 @@ const SignupSchema = mongoose.Schema({
     },
     access_token:{
         type:String,required:true
+    },
+    followers:{
+        type:Array
     }
 });
 

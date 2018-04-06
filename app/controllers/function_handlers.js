@@ -93,8 +93,7 @@ exports.blogpost=(req,res)=>{
     let token=req.body.access_token,User;
 console.log(token);
 
-    if (!ObjectId.isValid(token))
-        return Error({ status: 422 });
+
 
     Signup.findOne({access_token:token},function (err,user) {
         if(err)
@@ -126,4 +125,76 @@ console.log(token);
             }
         }
     })
+};
+
+exports.follow=(req,res)=>{
+    let msg;
+    let t=1;
+    console.log(req.params.username);
+    if(!req.params.username) {
+        msg="invalid username";
+    }
+
+    Signup.findOne({Username:req.params.username},(err,res1)=>{
+        if(err)
+            throw err;
+        else if(res1===undefined||res1===null)
+        {
+            console.log(res1);
+            msg="invalid username";
+            t=0;
+        }
+    });
+
+    let token=req.body.access_token;
+    console.log(token);
+    Signup.findOne({access_token:token},function (err,user) {
+        if(err)
+            throw err;
+        else
+        {
+
+            console.log(user);
+            if(user===null||user===undefined)
+            {
+                msg="invalid access token";
+                t=0;
+            }
+
+            else if(user.Username===req.params.username)
+            {
+                msg="can't follow yourself"
+                t=0;
+            }
+
+            if(user!=null||user!=undefined) {
+                user=user||[];
+                console.log(user);
+                user.followers.forEach(function (item, index) {
+                    if (item === req.params.username) {
+                        msg = "already followed"
+                        t = 0;
+                    }
+                });
+            }
+
+              if(t===1) {
+                  let new_followers = user.followers;
+                  new_followers.push(req.params.username);
+                  Signup.findOneAndUpdate({access_token: token}, {$set: {followers: new_followers}}, function (err1, user1) {
+                      if (err)
+                          throw err1;
+                      else
+                          res.send(user1);
+                  });
+              }
+              else
+              {
+                  return res.status(504).send({
+                      message:msg
+                  });
+              }
+
+        }
+    });
 };

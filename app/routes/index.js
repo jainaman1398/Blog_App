@@ -13,4 +13,6 @@ router.post('/login',handler.login);
 
 router.post('/blogpost',handler.blogpost);
 
+router.put('/follow/:username',handler.follow);
+
 module.exports=router;
