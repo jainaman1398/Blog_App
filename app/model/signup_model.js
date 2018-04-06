@@ -15,6 +15,9 @@ const SignupSchema = mongoose.Schema({
     },
     blogURL:{
         type:String,required:true
+    },
+    access_token:{
+        type:String,required:true
     }
 });
 

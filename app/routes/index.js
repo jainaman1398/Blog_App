@@ -11,4 +11,6 @@ router.post('/register', handler.register);
 
 router.post('/login',handler.login);
 
+router.post('/blogpost',handler.blogpost);
+
 module.exports=router;
