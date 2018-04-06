@@ -15,4 +15,6 @@ router.post('/blogpost',handler.blogpost);
 
 router.put('/follow/:username',handler.follow);
 
+router.get('/feed',handler.feed);
+
 module.exports=router;

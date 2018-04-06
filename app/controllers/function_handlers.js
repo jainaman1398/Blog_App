@@ -198,3 +198,44 @@ exports.follow=(req,res)=>{
         }
     });
 };
+
+exports.feed=(req,res)=>{
+    let token=req.headers.access_token;
+console.log(token);
+    Signup.findOne({access_token:token},(err,user)=>{
+        if(err)
+            throw err;
+        else
+        {
+            if(user===null||user===undefined)
+            {
+                return res.status(400).send({
+                    message: "Invalid Access_token"
+                });
+            }
+
+            else
+            {
+                let obj=[];
+
+                    let yo=0;
+                    user.followers.forEach(function (item, index) {
+                        console.log(item);
+                        Blog.find({Username: item}, (err, blogs) => {
+                            if (err)
+                                throw err;
+                            else {
+                                console.log(blogs);
+                                yo++;
+                                console.log("hi");
+                                obj.push(blogs);
+                                if(yo===user.followers.length)
+                                    res.send(obj);
+                            }
+                        })
+                    })
+                console.log(yo);
+            }
+        }
+    })
+}
