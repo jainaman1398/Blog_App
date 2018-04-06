@@ -11,6 +11,8 @@ const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
+
+// database Connection
 mongoose.connect(dbConfig.url)
     .then(() => {
         console.log("Successfully connected to the database");
@@ -19,6 +21,8 @@ mongoose.connect(dbConfig.url)
     process.exit();
 });
 
+
+//routing
 app.use('/',index);
 
 

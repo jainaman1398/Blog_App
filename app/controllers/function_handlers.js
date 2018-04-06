@@ -4,17 +4,22 @@ const faker=require('faker');
 
 exports.register=(req,res)=>{
 
+    //checking content
     if(!req.body.Username||!req.body.password||!req.body.firstname||!req.body.lastname||!req.body.blogURL) {
         return res.status(400).send({
             message: "User data can not be empty"
         });
     }
+
     console.log(req.body.Username);
+
+    //searchig for user in database
     Signup.findOne({Username:req.body.Username},function (err,user) {
         if(err)
             throw err;
         else
         {
+            //if username is available then create this user
             if(user===null)
             {
                 let token=faker.random.number();
@@ -36,6 +41,7 @@ exports.register=(req,res)=>{
                     });
                 });
             }
+            //username is already in use
             else
             {
                 res.status(500).send({
@@ -48,13 +54,16 @@ exports.register=(req,res)=>{
 };
 
 exports.login=(req,res)=>{
+    //checking for data
     if(!req.body.Username||!req.body.password) {
         return res.status(400).send({
             message: "Enter User Credentials"
         });
     }
 
+    //searching for user in database
     Signup.findOne({'Username':req.body.Username},function (err,user) {
+        //user is not present
         if(user===undefined||user==null)
         {
             return res.status(400).send({
@@ -69,12 +78,15 @@ exports.login=(req,res)=>{
         else
         {
             console.log(user);
+            /*user successfully logged in ,in response we are sending unique access_token to user
+            which he/she can use for future purposes for authentication*/
             if(user.password===req.body.password)
             {
                 res.send({access_token:user.access_token});
             }
             else
             {
+                //password is incorrect
                 return res.status(400).send({
                     message: "Password is not correct"
                 });
@@ -84,6 +96,7 @@ exports.login=(req,res)=>{
 };
 
 exports.blogpost=(req,res)=>{
+    //checking for data content
     if(!req.body.Title||!req.body.content) {
         return res.status(400).send({
             message: "data can't be empty"
@@ -94,12 +107,13 @@ exports.blogpost=(req,res)=>{
 console.log(token);
 
 
-
+    //finding user using access_token
     Signup.findOne({access_token:token},function (err,user) {
         if(err)
             throw err;
         else
         {
+            //access_token is not present at database
             if(user===undefined||user==null)
             {
                 return res.status(400).send({
@@ -107,6 +121,7 @@ console.log(token);
                 });
             }
             else {
+                //creating new blog entry into database
                 User = user.Username;
                 const blog=new Blog({
                     Username:User,
@@ -135,6 +150,7 @@ exports.follow=(req,res)=>{
         msg="invalid username";
     }
 
+    //searching for username in database which is to be followed
     Signup.findOne({Username:req.params.username},(err,res1)=>{
         if(err)
             throw err;
@@ -153,7 +169,7 @@ exports.follow=(req,res)=>{
             throw err;
         else
         {
-
+              // token is valid i.e user is not authorized
             console.log(user);
             if(user===null||user===undefined)
             {
@@ -167,6 +183,7 @@ exports.follow=(req,res)=>{
                 t=0;
             }
 
+            //searching for followers array to check condition ,if this username is present in follower array or not
             if(user!=null||user!=undefined) {
                 user=user||[];
                 console.log(user);
@@ -178,6 +195,7 @@ exports.follow=(req,res)=>{
                 });
             }
 
+             //all good,updating followers array by appending new follower
               if(t===1) {
                   let new_followers = user.followers;
                   new_followers.push(req.params.username);
@@ -202,11 +220,14 @@ exports.follow=(req,res)=>{
 exports.feed=(req,res)=>{
     let token=req.headers.access_token;
 console.log(token);
+
+ //searching in database using access_token
     Signup.findOne({access_token:token},(err,user)=>{
         if(err)
             throw err;
         else
         {
+            //user is not authorized so can't proceed further
             if(user===null||user===undefined)
             {
                 return res.status(400).send({
@@ -219,21 +240,22 @@ console.log(token);
                 let obj=[];
 
                     let yo=0;
+                    //iterating over followers array
                     user.followers.forEach(function (item, index) {
                         console.log(item);
+                        //extracting all blogs of a particular follower
                         Blog.find({Username: item}, (err, blogs) => {
                             if (err)
                                 throw err;
                             else {
                                 console.log(blogs);
                                 yo++;
-                                console.log("hi");
                                 obj.push(blogs);
                                 if(yo===user.followers.length)
                                     res.send(obj);
                             }
                         })
-                    })
+                    });
                 console.log(yo);
             }
         }
