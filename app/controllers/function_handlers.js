@@ -26,3 +26,39 @@ exports.register=(req,res)=>{
     });
 
 };
+
+exports.login=(req,res)=>{
+    if(!req.body.Username||!req.body.password) {
+        return res.status(400).send({
+            message: "Enter User Credentials"
+        });
+    }
+
+    Signup.findOne({'Username':req.body.Username},'password',function (err,user) {
+        if(user==undefined)
+        {
+            return res.status(400).send({
+                message: "User is not registered"
+            });
+        }
+        if(err) {
+            return res.status(400).send({
+                message: err
+            });
+        }
+        else
+        {
+            console.log(user);
+            if(user.password===req.body.password)
+            {
+                res.send({access_token:user._id});
+            }
+            else
+            {
+                return res.status(400).send({
+                    message: "Password is not correct"
+                });
+            }
+        }
+    });
+};
