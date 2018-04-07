@@ -53,3 +53,12 @@ POST /  blogpost
     Allows user to create a blog post with following parameters
        ...Title, content
       You need to send the access_token with the body of request to authenticate yourself
+      
+ ## 5) Getting blog feed of users you follow
+ ![alt text](https://github.com/jainaman1398/Blog_app/blob/master/images/got_blogs.png)
+ 
+ ```bash
+ GET /feed
+ 
+ ```
+     Returns all blog posts of users you follow and you need to send the access_token with the body of request to authenticate yourself
