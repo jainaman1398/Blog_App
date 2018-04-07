@@ -1,6 +1,12 @@
 # Blog_app
 REST API's for blogging Application
 
+## Hosted App link
+
+```
+https://aj1398.herokuapp.com
+```
+
 ## STEPS TO SETUP
 
 1) Install dependencies
