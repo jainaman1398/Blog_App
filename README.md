@@ -17,7 +17,7 @@ REST API's for blogging Application
   ```
   # API DOCUMENTATION
   
-  1) Register
+ ## 1) Register
   ![alt text](https://github.com/jainaman1398/Blog_app/blob/master/images/register.png)
       ```bash
      POST /register
@@ -25,7 +25,7 @@ REST API's for blogging Application
       Allows user to register herself on the platform with basic information
         >Username, password, firstname, lastname, blogURL
         
- 2) Login
+## 2) Login
  ![alt text](https://github.com/jainaman1398/Blog_app/blob/master/images/login.png)
  ```bash
  POST /login
@@ -35,7 +35,7 @@ REST API's for blogging Application
          ```bash
          For example if he makes a request to /blogpost he will need to send the access_token(which he got as a response when he made a request for login) with the body of request 
          ```
-  3) Follow 
+##  3) Follow 
   ![alt text](https://github.com/jainaman1398/Blog_app/blob/master/images/follow.png)
   
   ```bash
@@ -43,3 +43,13 @@ REST API's for blogging Application
   ```
       Allows you to follow new user. You need to send the user's name whom you want to follow as params
       and your access_token with the body of request to authenticate yourself
+      
+## 4) Creating Blogpost
+![alt text](https://github.com/jainaman1398/Blog_app/blob/master/images/blogpost.png)
+
+```bash
+POST /  blogpost
+```
+    Allows user to create a blog post with following parameters
+       ...Title, content
+      You need to send the access_token with the body of request to authenticate yourself
