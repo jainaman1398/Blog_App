@@ -13,11 +13,11 @@ mongoose.Promise = global.Promise;
 
 
 // database Connection
-mongoose.connect('mongodb://jainaman1398:mathematics@1298@ds237489.mlab.com:37489/blog-app')
+mongoose.connect(dbConfig.url)
     .then(() => {
         console.log("Successfully connected to the database");
     }).catch(err => {
-    console.log('Could not connect to the database. Exiting now...');
+    console.log('Could not connect to the database. Exiting now...',err);
     process.exit();
 });
 
@@ -28,5 +28,5 @@ app.use('/',index);
 
 
 app.listen(process.env.port||3000,()=>{
-    console.log("Server is listening on port 3000");
+    console.log("Server is running");
 });
