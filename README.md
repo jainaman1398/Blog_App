@@ -9,9 +9,9 @@ REST API's for blogging Application
   ```
   
 2) Run Node and MongoDB server
-  open terminal inside root folder and type node server.js and mongod in another this will setup the node and MongoDB server ,then open      another terminal and type mongo to run mongo client
+  open terminal inside root folder and type node app.js and mongod in another this will setup the node and MongoDB server ,then open      another terminal and type mongo to run mongo client
   ```bash
-  npm server.js
+  npm app.js
   mongod
   mongo
   ```

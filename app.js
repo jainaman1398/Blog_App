@@ -13,7 +13,7 @@ mongoose.Promise = global.Promise;
 
 
 // database Connection
-mongoose.connect(process.env.MONGOLAB_URI||dbConfig.url)
+mongoose.connect('mongodb://jainaman1398:mathematics@1298@ds237489.mlab.com:37489/blog-app')
     .then(() => {
         console.log("Successfully connected to the database");
     }).catch(err => {
