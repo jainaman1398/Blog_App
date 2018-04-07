@@ -19,7 +19,7 @@ REST API's for blogging Application
   
  ## 1) Register
   ![alt text](https://github.com/jainaman1398/Blog_app/blob/master/images/register.png)
-      ```bash
+      ```
      POST /register
       ```
       Allows user to register herself on the platform with basic information
