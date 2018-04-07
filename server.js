@@ -13,7 +13,7 @@ mongoose.Promise = global.Promise;
 
 
 // database Connection
-mongoose.connect(dbConfig.url)
+mongoose.connect(process.env.MONGOLAB_URI||dbConfig.url)
     .then(() => {
         console.log("Successfully connected to the database");
     }).catch(err => {
@@ -29,4 +29,4 @@ app.use('/',index);
 
 app.listen(process.env.port||3000,()=>{
     console.log("Server is listening on port 3000");
-}); 
+});
