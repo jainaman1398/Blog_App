@@ -32,9 +32,9 @@ REST API's for blogging Application
  
  ```
          authenticates the user and provides him with an access_token in response.this access_token must be used for his authentication when he makes any request
-         ```
+         
          For example if he makes a request to /blogpost he will need to send the access_token(which he got as a response when he made a request for login) with the body of request 
-         ```
+         
 ##  3) Follow 
   ![alt text](https://github.com/jainaman1398/Blog_app/blob/master/images/follow.png)
   
