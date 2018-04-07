@@ -60,4 +60,4 @@ POST /  blogpost
  GET /feed
  
  ```
-     Returns all blog posts of users you follow and you need to send the access_token in the params of request to authenticate yourself
+     Returns all blog posts of users you follow and you need to send the access_token in the headers of request to authenticate yourself
