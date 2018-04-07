@@ -27,7 +27,7 @@ REST API's for blogging Application
         
  2) Login
  ![alt text](https://github.com/jainaman1398/Blog_app/blob/master/images/login.png)
- ```
+ ```bash
  POST /login
  
  ```
@@ -35,4 +35,11 @@ REST API's for blogging Application
          ```bash
          For example if he makes a request to /blogpost he will need to send the access_token(which he got as a response when he made a request for login) with the body of request 
          ```
-       
+  3) Follow 
+  ![alt text](https://github.com/jainaman1398/Blog_app/blob/master/images/follow.png)
+  
+  ```bash
+  PUT /follow/{username}
+  ```
+      Allows you to follow new user. You need to send the user's name whom you want to follow as params
+      and your access_token with the body of request to authenticate yourself
