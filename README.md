@@ -15,3 +15,12 @@ REST API's for blogging Application
   mongod
   mongo
   ```
+  # API DOCUMENTATION
+  
+  1) Register
+  ![alt text](https://github.com/jainaman1398/Blog_app/blob/master/images/register.png)
+      '''bash
+      /register
+      '''
+      Allows user to register herself on the platform with basic information
+        >Username, password, firstname, lastname, blogURL
